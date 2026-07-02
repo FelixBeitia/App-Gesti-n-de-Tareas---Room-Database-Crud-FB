@@ -129,7 +129,7 @@ Toda la interfaz es declarativa (sin XML de layouts). Componentes clave en
 
 - **`Scaffold`** con `TopAppBar` y un `FloatingActionButton` (botón **+**) para agregar.
 - **`LazyColumn`** que renderiza la lista de tareas de forma eficiente; cada ítem es una
-  `Card` con:
+  **tarjeta de vidrio** (`Box` con el modificador `glass`, ver §4.1) con:
   - `Checkbox` → marca la tarea como **completada** (aplica tachado al texto).
   - Botón **Editar** (ícono lápiz) → abre el diálogo en modo edición.
   - Botón **Eliminar** (ícono basura) → borra la tarea.
@@ -141,6 +141,38 @@ Toda la interfaz es declarativa (sin XML de layouts). Componentes clave en
   `mutableStateOf`.
 - **Material 3** con soporte de tema claro/oscuro y color dinámico (Material You) en
   Android 12+.
+
+### 4.1 Diseño Glassmorphism (efecto vidrio esmerilado)
+
+La interfaz aplica un estilo **glassmorphism**, inspirado en el *Liquid Glass* de Apple.
+Como esta app es **Android/Jetpack Compose** (no SwiftUI), el efecto no usa ese framework:
+se **recrea con las herramientas nativas de Compose** siguiendo la misma idea de diseño.
+
+El efecto se logra con tres capas (todo en `TaskScreen.kt`):
+
+1. **Fondo con degradado vibrante** (`Brush.linearGradient`, violeta → índigo → rosa) para
+   que el vidrio tenga un color de fondo que "refractar".
+2. **Superficies translúcidas** — un `Modifier.glass()` reutilizable que aplica
+   `clip` + `background(Color.White.copy(alpha = 0.14f))` sobre el fondo.
+3. **Borde de luz** — un `border` con degradado blanco que simula el canto del cristal.
+
+```kotlin
+private fun Modifier.glass(shape: Shape): Modifier = this
+    .clip(shape)
+    .background(Color.White.copy(alpha = 0.14f))          // capa translúcida
+    .border(                                              // borde de luz (canto del vidrio)
+        width = 1.dp,
+        brush = Brush.linearGradient(
+            listOf(Color.White.copy(alpha = 0.55f), Color.White.copy(alpha = 0.10f))
+        ),
+        shape = shape
+    )
+```
+
+**Referencia de diseño** (documentación oficial de Apple, *Applying Liquid Glass to custom
+views*, traducida al español):
+
+> https://developer-apple-com.translate.goog/documentation/swiftui/applying-liquid-glass-to-custom-views?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc&_x_tr_hist=true
 
 ---
 
