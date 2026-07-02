@@ -172,11 +172,3 @@ Compilar por línea de comandos (opcional):
 ./gradlew assembleDebug        # macOS / Linux
 gradlew.bat assembleDebug      # Windows
 ```
-
----
-
-## 7. Entregables de la asignación
-
-- [x] Código fuente (este proyecto) → subir a GitHub.
-- [ ] Video de la aplicación funcionando.
-- [x] Documento explicativo → **este README** (arquitectura, Room y Compose).
