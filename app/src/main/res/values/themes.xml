@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema base de la app. Compose maneja los colores reales; este tema
+         solo se usa antes de que arranque la UI de Compose (splash inicial). -->
+    <style name="Theme.TareasApp" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>
